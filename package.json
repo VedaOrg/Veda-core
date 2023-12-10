@@ -1,0 +1,32 @@
+{
+  "name": "veda",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@stacks/common": "^6.8.1",
+    "@stacks/encryption": "^6.9.0",
+    "@stacks/transactions": "^6.9.0",
+    "@types/node": "^20.6.2",
+    "@types/progress": "^2.0.6",
+    "axios": "^1.5.0",
+    "bip32": "^4.0.0",
+    "bip322-js": "^1.1.0",
+    "bitcoinjs-lib": "^6.1.5",
+    "bitcoinjs-message": "^2.2.0",
+    "bitcore-lib": "^10.0.11",
+    "dotenv": "^16.3.1",
+    "ecpair": "^2.1.0",
+    "ethereumjs-util": "^7.1.5",
+    "level": "^8.0.0",
+    "progress": "^2.0.3",
+    "rlp": "^3.0.0",
+    "tiny-secp256k1": "^2.2.3",
+    "typescript": "^5.2.2",
+    "varuint-bitcoin": "^1.1.2",
+    "web3": "^4.1.2"
+  },
+  "scripts": {
+    "build": "rollup -c --bundleConfigAsCjs"
+  }
+}
