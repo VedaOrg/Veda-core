@@ -154,6 +154,10 @@ const filter = async (contentString: string): Promise<FilteredInstruction | void
     return
   }
 
+  if (typeof content.nonce !== 'number') {
+    return
+  }
+
   // Verify transaction hash
   if (content.action === 'execute') {
     const instruction: ExecuteSerialInstruction = {
