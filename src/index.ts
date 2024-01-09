@@ -7,11 +7,7 @@ const bvmRpcClient = new BvmRpcClient(process.env.BVM_RPC_URL || '')
 const init = async () => {
   let genesisBlock = 822267
   let timestamp = 1703181793
-
-  return {
-    lastBlockHeight: 822478,
-    lastTimestamp: timestamp,
-  }
+  
   try {
     const syncInfo = await bvmRpcClient.getSyncInfo()
     return {
