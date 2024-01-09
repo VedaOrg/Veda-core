@@ -197,7 +197,7 @@ const filter = async (contentString: string): Promise<FilteredInstruction | void
   return content as FilteredInstruction
 }
 
-const sync = async (height: number, progress: Progress) => {
+const sync = async (height: number, lastTimestamp: number, progress: Progress) => {
   const {
     block_count: blockCount,
     inscriptions,
@@ -242,11 +242,13 @@ const sync = async (height: number, progress: Progress) => {
     }
   }
   if (transactions.length !== 0) console.log(transactions)
+
+  const timestamp = blockInfo.time > lastTimestamp ? blockInfo.time : lastTimestamp + 1
   await bvmRpcClient.rpcCall({
     block: {
       blockHash: blockInfo.hash,
       blockNumber: blockInfo.height,
-      timestamp: blockInfo.time,
+      timestamp,
       mixHash: blockInfo.nonce.toString(16).padStart(64, '0'),
     },
     transactions,
@@ -261,10 +263,10 @@ const sync = async (height: number, progress: Progress) => {
       await new Promise(resolve => setTimeout(resolve, 10000))
     }
   }
-  sync(height + 1, progress)
+  sync(height + 1, timestamp, progress)
 }
 
-const init = async (height: number) => {
+const init = async (height: number, timestamp: number) => {
   const {
     block_count: blockCount,
     // inscriptions,
@@ -283,6 +285,6 @@ const init = async (height: number) => {
       await new Promise(resolve => setTimeout(resolve, 10000))
     }
   }
-  sync(height + 1, progress)
+  sync(height + 1, timestamp, progress)
 }
 export default init
