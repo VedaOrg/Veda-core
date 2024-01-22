@@ -190,7 +190,7 @@ const filter = async (contentString: string): Promise<FilteredInstruction | void
   }
 
   // Verify sig
-  const address = publicKeyToAddress(content.publicKey)[content.addressType]
+  const address = publicKeyToAddress(content.publicKey, process.env.NETWORK as 'mainnet' | 'testnet' || 'mainnet')[content.addressType]
   // if (!(verifyMessage(content.txHash, content.sig, address, content.sigType))) throw new Error('Signature verify failed')
   if (!(verifyMessage(content.txHash, content.sig, address, content.sigType))) return
 
@@ -212,7 +212,7 @@ const sync = async (height: number, lastTimestamp: number, progress: Progress) =
       if (inscription.entry.inscription_number < 0) continue
       const instruction = await filter(inscription.content)
       if (!instruction) continue
-      const address = publicKeyToAddress(instruction.publicKey)[instruction.addressType || 'p2wpkh']
+      const address = publicKeyToAddress(instruction.publicKey, process.env.NETWORK as 'mainnet' | 'testnet' || 'mainnet')[instruction.addressType || 'p2wpkh']
       const hexAddress = generateHexAddress(address)
 
       if (instruction.action === 'execute') {
